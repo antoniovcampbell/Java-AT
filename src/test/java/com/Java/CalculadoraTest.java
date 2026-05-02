@@ -2,6 +2,7 @@ package com.Java;
 
 
 import com.Java.service.Calculadora;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,29 +10,34 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CalculadoraTest {
 
+    private Calculadora calculadora;
+
+    @BeforeEach
+    public void Calculadora(){
+        calculadora = new Calculadora();
+    }
     @Test
     void TesteSoma() {
-        Calculadora calc = new Calculadora();
-        int resultado = calc.somar(2, 3);
+        int resultado = calculadora.somar(2, 3);
         assertEquals(5, resultado);
-        calc = null;
+        calculadora = null;
     }
 
     @Test
     void testeSubtracao() {
-
-        Calculadora calc = new Calculadora();
-        int resultado = calc.subtrair(5, 3);
+        int resultado = calculadora.subtrair(5, 3);
         assertEquals(2, resultado);
-        calc = null;
+        calculadora = null;
+    }
+    @Test
+    void testeDivisao(){
+        int resultado = calculadora.dividir(6, 2);
+        assertEquals(3, resultado);
+        calculadora = null;
     }
 
     @Test
     void deveLancarExcecaoAoDividirPorZero() {
-        Calculadora calc = new Calculadora();
-
-        assertThrows(ArithmeticException.class, () -> {
-            calc.dividir(10, 0);
-        });
+        assertThrows(ArithmeticException.class, () -> calculadora.dividir(10, 0));
     }
 }
